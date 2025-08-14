@@ -58,19 +58,46 @@ function NavBar() {
             style={{ overflow: "hidden" }}
           >
             <div
-              className={`bg-[#f1fbfd]/80 flex flex-col gap-3 fixed mt-18 overflow-hidden items-baseline py-5 px-10 divide-y divide-hb600 transition-all duration-300 sm:hidden 
+              className={`bg-[#f1fbfd] flex flex-col gap-3 fixed mt-18 overflow-hidden items-baseline py-5 px-10 divide-y divide-hb600 transition-all duration-300 sm:hidden 
         ${isOpen ? "w-full" : "w-0 p-0"}`}
             >
               <button className="text-mb400 cursor-pointer hover:text-pc500 transition duration-300">
-                Features
+                <Link
+                  to="features"
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  Features
+                </Link>
               </button>
               <button className="text-mb400 cursor-pointer hover:text-pc500 transition duration-300">
-                Review
+                <Link
+                  to="Reviews"
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  Reviews
+                </Link>
               </button>
               <button className="text-mb400 cursor-pointer hover:text-pc500 transition duration-300">
-                Pricing
+                <Link
+                  to="Pricing"
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  Pricing
+                </Link>
               </button>
-              <button className="bg-gradient-to-r from-pc500 to-bg500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-pc500 transition duration-200 hover:from-pc600 hover:to-bg600 transform hover:scale-105 ease-in-out">
+              <button
+                className="bg-gradient-to-r from-pc500 to-bg500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-pc500 transition duration-200 hover:from-pc600 hover:to-bg600 transform hover:scale-105 ease-in-out"
+                onClick={() => setIsOpen(!isOpen)}
+              >
                 Get Started
               </button>
             </div>
