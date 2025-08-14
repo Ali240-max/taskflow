@@ -1,8 +1,15 @@
-import { Check, Star, Zap, Crown } from "lucide-react";
-import PricingCard from "./PricingCard";
+import { Star, Zap, Crown } from "lucide-react";
 import { Element } from "react-scroll";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import PricingCard from "./PricingCard";
 
 const Pricing = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const plans = [
     {
       name: "Free",
@@ -69,16 +76,23 @@ const Pricing = () => {
     <Element name="Pricing">
       <section className="py-20 px-10">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="flex text-center items-center flex-col justify-center text-5xl font-bold text-fb500 leading-tight">
-            Simple, Transparent
-            <span className="block  bg-gradient-to-r from-pc500 to-bg500 bg-clip-text text-transparent">
-              Pricing
-            </span>
-          </h1>
-          <p className="text-xl text-mb400 text-center max-w-[780px] ">
-            Choose the perfect plan for your needs. All plans include a 14-day
-            free trial.
-          </p>
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="flex text-center items-center flex-col justify-center text-5xl font-bold text-fb500 leading-tight">
+              Simple, Transparent
+              <span className="block  bg-gradient-to-r from-pc500 to-bg500 bg-clip-text text-transparent">
+                Pricing
+              </span>
+            </h1>
+            <p className="text-xl text-mb400 text-center max-w-[780px] ">
+              Choose the perfect plan for your needs. All plans include a 14-day
+              free trial.
+            </p>
+          </motion.div>
         </div>
         <div className="flex gap-10 max-sm:items-center items-baseline justify-center mt-10 max-md:flex-col">
           {plans.map((plan, index) => (

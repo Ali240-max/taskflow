@@ -1,8 +1,15 @@
-import { Star, Quote } from "lucide-react";
-import TestimonialCard from "./TestimonialCard";
 import { Element } from "react-scroll";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
+import TestimonialCard from "./TestimonialCard";
 
 const Testimonials = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -39,22 +46,37 @@ const Testimonials = () => {
     <Element name="Reviews">
       <section className="bg-gradient-to-br from-lc600 via-lb500 to-npb1400 py-20 px-10 ">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="flex text-center max-sm:text-3xl items-center flex-col justify-center text-5xl font-bold text-fb500 leading-tight">
-            Loved by Teams
-            <span className="block  bg-gradient-to-r from-pc500 to-bg500 bg-clip-text text-transparent">
-              Around the World
-            </span>
-          </h1>
-          <p className="text-xl text-mb400 text-center max-w-[700px] ">
-            Join thousands of satisfied users who've transformed their
-            productivity with TaskFlow.
-          </p>
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="flex text-center max-sm:text-3xl items-center flex-col justify-center text-5xl font-bold text-fb500 leading-tight">
+              Loved by Teams
+              <span className="block  bg-gradient-to-r from-pc500 to-bg500 bg-clip-text text-transparent">
+                Around the World
+              </span>
+            </h1>
+            <p className="text-xl text-mb400 text-center max-w-[700px] ">
+              Join thousands of satisfied users who've transformed their
+              productivity with TaskFlow.
+            </p>
+          </motion.div>
         </div>
-        <div className="flex items-center gap-10 mt-10 max-md:flex-col">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} {...testimonial} />
-          ))}
-        </div>
+
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="flex items-center gap-10 mt-10 max-md:flex-col">
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+        </motion.div>
       </section>
     </Element>
   );
